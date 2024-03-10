@@ -2,14 +2,6 @@ package models
 
 import "time"
 
-/* type TransactionType string
-
-const (
-	Income   TransactionType = "income"
-	Expense  TransactionType = "expense"
-	Transfer TransactionType = "transfer"
-) */
-
 type Transaction struct {
 	ID          string    `json:"id"`
 	Amount      float64   `json:"amount"`
@@ -20,7 +12,12 @@ type Transaction struct {
 	Description string    `json:"description"`
 }
 
-type CreateResponse struct {
+type TransactionResponse struct {
 	Transaction Transaction `json:"transaction"`
 	Status      string      `json:"status"`
+}
+
+type ListResponse struct {
+	Transaction []Transaction `json:"transaction"`
+	Status      string        `json:"status"`
 }
