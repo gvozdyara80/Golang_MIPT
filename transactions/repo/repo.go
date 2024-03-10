@@ -40,7 +40,7 @@ func (db *InMemoryDB) Read(id string) (*models.Transaction, error) {
 	return &transaction, nil
 }
 
-func (db *InMemoryDB) Update(id string, updatedTransaction models.Transaction) error {
+func (db *InMemoryDB) Update(id string, updTransaction models.Transaction) error {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 
@@ -49,8 +49,8 @@ func (db *InMemoryDB) Update(id string, updatedTransaction models.Transaction) e
 		return errNotFound
 	}
 
-	transaction := updatedTransaction
-	db.transactions[id] = transaction
+	updTransaction.ID = id
+	db.transactions[id] = updTransaction
 
 	return nil
 }

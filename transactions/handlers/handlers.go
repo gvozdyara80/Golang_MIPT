@@ -36,5 +36,23 @@ func Transaction(w http.ResponseWriter, r *http.Request) {
 
 			json.NewEncoder(w).Encode(models.ListResponse{Transaction: transactions, Status: "succes"})
 		}
+
+	case "PUT":
+		id := r.URL.Query().Get("id")
+		var updTransaction models.Transaction
+		if err := json.NewDecoder(r.Body).Decode(&updTransaction); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+		}
+
+		InMemoryDB.Update(id, updTransaction)
+
+		json.NewEncoder(w).Encode(models.TransactionResponse{Transaction: updTransaction, Status: "succes"})
+
+		/* case "DELETE":
+		id := r.URL.Query().Get("id")
+
+		transactions := InMemoryDB.Delete(id)
+
+		json.NewEncoder(w).Encode(models.ListResponse{Transaction: *transactions, Status: "succes"}) */
 	}
 }
