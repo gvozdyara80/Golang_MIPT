@@ -48,11 +48,12 @@ func Transaction(w http.ResponseWriter, r *http.Request) {
 
 		json.NewEncoder(w).Encode(models.TransactionResponse{Transaction: updTransaction, Status: "succes"})
 
-		/* case "DELETE":
+	case "DELETE":
 		id := r.URL.Query().Get("id")
 
-		transactions := InMemoryDB.Delete(id)
+		InMemoryDB.Delete(id)
+		transactions := InMemoryDB.List()
 
-		json.NewEncoder(w).Encode(models.ListResponse{Transaction: *transactions, Status: "succes"}) */
+		json.NewEncoder(w).Encode(models.ListResponse{Transaction: transactions, Status: "succes"})
 	}
 }
